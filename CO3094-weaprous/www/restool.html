@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RESTful Tool</title>
+    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/static/css/restool.css" />
+    <script src="/static/js/restool.js" defer></script>
+  </head>
+  <body>
+    <div class="container">
+      <h2>RESTful Tool</h2>
+
+      <div class="row">
+        <div>
+          <label for="method">HTTP Method</label>
+          <select id="method">
+            <option>GET</option>
+            <option>POST</option>
+            <option>PUT</option>
+            <option>DELETE</option>
+          </select>
+        </div>
+        <div>
+          <label for="url">Request URL</label>
+          <input id="url" placeholder="/api/..." />
+        </div>
+      </div>
+
+      <div class="row">
+        <div>
+          <label for="headerPreset">Headers preset (lower-case)</label>
+          <select id="headerPreset">
+            <option value="">— choose a preset —</option>
+            <option value="accept: application/json">
+              accept: application/json
+            </option>
+            <option value="accept: text/html">accept: text/html</option>
+            <option value="accept: */*">accept: */*</option>
+            <option value="content-type: application/json">
+              content-type: application/json
+            </option>
+            <option value="content-type: application/x-www-form-urlencoded">
+              content-type: application/x-www-form-urlencoded
+            </option>
+            <option value="content-type: text/plain">
+              content-type: text/plain
+            </option>
+            <option value="authorization: bearer &lt;token&gt;">
+              authorization: bearer &lt;token&gt;
+            </option>
+            <option value="cookie: sid=&lt;session-id&gt;">
+              cookie: sid=&lt;session-id&gt;
+            </option>
+          </select>
+
+          <div class="inline" style="margin-top: 8px">
+            <input
+              id="channelQuick"
+              placeholder="channel (adds header: x-channel)"
+              style="flex: 1"
+            />
+            <button class="btn" id="addXChan" style="width: auto">
+              Add x-channel header
+            </button>
+          </div>
+
+          <div class="inline muted" style="margin-top: 8px">
+            <span class="pill">Note</span>
+            <span
+              >Some forbidden headers (host, connection, content-length, date,
+              etc.) are set by the browser and can’t be overridden from
+              JavaScript.</span
+            >
+          </div>
+        </div>
+
+        <div class="inline" style="justify-content: flex-end">
+          <label class="toggle" for="withCreds">
+            <input id="withCreds" type="checkbox" />
+            <span class="muted">Send credentials (cookies)</span>
+          </label>
+        </div>
+      </div>
+
+      <div>
+        <label for="headers"
+          >Headers (one per line, <code>key: value</code>)</label
+        >
+        <textarea
+          id="headers"
+          placeholder="content-type: application/json&#10;accept: application/json"
+        ></textarea>
+      </div>
+
+      <div>
+        <label for="body">Body</label>
+        <textarea
+          id="body"
+          placeholder='For JSON: {"a":1}  |  For form: k1=v1&k2=v2'
+        ></textarea>
+      </div>
+
+      <button class="btn" id="sendBtn">Send Request</button>
+
+      <div>
+        <h3>Response</h3>
+        <div id="response" class="response-box">
+          Status: —&#10;&#10;Headers:&#10;—&#10;&#10;Body:&#10;—
+        </div>
+        <div class="muted" id="timing"></div>
+      </div>
+
+      <!-- P2P signaling tester -->
+      <div class="panel">
+        <h3>P2P Signaling Tester (offer/answer)</h3>
+
+        <div class="row-3">
+          <div>
+            <label>From</label>
+            <input id="relayFrom" placeholder="alice" />
+          </div>
+          <div>
+            <label>To</label>
+            <input id="relayTo" placeholder="john" />
+          </div>
+          <div>
+            <label>Wait (long poll)</label>
+            <select id="relayWait">
+              <option value="true">true</option>
+              <option value="false">false</option>
+            </select>
+          </div>
+        </div>
+
+        <label>SDP</label>
+        <textarea
+          id="relaySdp"
+          placeholder="paste SDP here"
+          style="height: 160px"
+        ></textarea>
+
+        <div class="btn-row">
+          <button class="btn" id="offerPush">POST /api/connect-peer</button>
+          <button class="btn" id="offerPop">POST /api/connect-peer/get</button>
+          <button class="btn" id="answerPush">POST /api/send-peer</button>
+          <button class="btn" id="answerPop">POST /api/send-peer/get</button>
+        </div>
+
+        <div style="margin-top: 10px">
+          <label>Relay Log</label>
+          <div id="relayLog" class="response-box" style="height: 220px"></div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

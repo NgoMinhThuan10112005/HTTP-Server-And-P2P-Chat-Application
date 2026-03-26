@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="/static/images/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="/static/css/login.css" />
+    <script src="/static/js/login.js" defer></script>
+  </head>
+  <body>
+    <main class="card">
+      <h1>Login</h1>
+
+      <!-- Keep action/method for no-JS fallback -->
+      <form id="login-form" method="POST" action="/api/login" novalidate>
+        <label class="field">
+          <span>Username</span>
+          <input name="username" type="text" autocomplete="username" required />
+        </label>
+
+        <label class="field">
+          <span>Password</span>
+          <input
+            name="password"
+            type="password"
+            autocomplete="current-password"
+            required
+          />
+        </label>
+
+        <button id="submit-btn" type="submit" class="btn">Login</button>
+      </form>
+
+      <div id="msg" class="msg" role="status" aria-live="polite"></div>
+    </main>
+
+    <noscript>
+      JavaScript is required for automatic redirect after login.
+    </noscript>
+  </body>
+</html>

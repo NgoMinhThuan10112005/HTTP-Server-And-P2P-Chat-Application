@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>P2P Chat – Channels + WebRTC</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="/static/css/p2p.css" />
+    <script src="/static/js/p2p.js" defer></script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="topbar">
+        <h1 class="title">P2P Chat · Channels + WebRTC DataChannels</h1>
+        <div class="row">
+          <span id="dcBadge" class="badge">DC: closed</span>
+          <button id="logout" class="btn">Logout</button>
+        </div>
+      </div>
+
+      <div class="grid">
+        <!-- Identity & Channel -->
+        <div class="card" style="grid-column: span 12">
+          <h3>Session</h3>
+          <div class="grid">
+            <div style="grid-column: span 6">
+              <div class="field">
+                <label for="me">My Peer ID</label>
+                <div class="row">
+                  <input id="me" placeholder="alice" autocomplete="off" />
+                  <button id="btnSubmitInfo" class="btn">Submit Info</button>
+                </div>
+                <div id="whoami" class="muted mono"></div>
+              </div>
+            </div>
+            <div style="grid-column: span 6">
+              <div class="field">
+                <label for="channel">Channel</label>
+                <div class="row">
+                  <input id="channel" placeholder="room-1" autocomplete="off" />
+                  <button id="btnJoin" class="btn">Create / Join</button>
+                  <button id="btnRefresh" class="btn">Refresh List</button>
+                  <button id="btnConnectAll" class="btn primary">
+                    Connect All
+                  </button>
+                </div>
+                <div class="muted">
+                  Only peers in the current channel are shown below.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Peers -->
+        <div class="card" style="grid-column: span 6">
+          <h3>Peers in Channel</h3>
+          <div id="peers" class="scroll mono"></div>
+        </div>
+
+        <!-- Log -->
+        <div class="card" style="grid-column: span 6">
+          <h3>Event Log</h3>
+          <div id="log" class="scroll mono"></div>
+        </div>
+
+        <!-- Messages -->
+        <div class="card" style="grid-column: span 12">
+          <h3>Messages</h3>
+          <div id="msgs" class="scroll mono" style="height: 200px"></div>
+          <div class="row" style="margin-top: 10px">
+            <input id="text" type="text" placeholder="Type a message…" />
+            <button id="send" class="btn primary">Broadcast</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  </body>
+</html>
