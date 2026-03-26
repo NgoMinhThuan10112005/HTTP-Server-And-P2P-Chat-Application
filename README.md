@@ -1,48 +1,78 @@
-cách chạy:
-python start_backend.py - mở backend Temrminal A
-python start_proxy.py - mở proxy Temrminal B
+# CO3094 WeApRous - Quick Start
 
+## Cách chạy
+Mở 2 terminal riêng:
 
-3) Mở UI
---------------------
-Dùng browser (Chrome/Edge/Firefox):
+- **Terminal A (backend):**
+  ```bash
+  python start_backend.py
+  ```
+- **Terminal B (proxy):**
+  ```bash
+  python start_proxy.py
+  ```
 
-A) Login page
-   URL: http://127.0.0.1:8080/login.html
-   Steps:
-     - Gõ: username = admin, password = password
-     - Submit.
-   Expected:
-     - Login succeeds → trang login sẽ dùng js script chuyển qua "/" (index).
-     - Cookie được lấy (check DevTools → Application → Cookies).
+Sau khi chạy thành công, truy cập ứng dụng qua proxy tại `http://127.0.0.1:8080`.
 
-B) Gated home page
-   URL: http://127.0.0.1:8080/
-   Steps:
-     - Nếu logged in (auth cookie present) → index page loads.
-     - nếu NOT logged in → shows 401 page with a link back to /login.html.
+---
 
-C) Chat (Client–Server)
-   URL: http://127.0.0.1:8080/chat.html 
-   Steps:
-     - Phải logged in.
-     - Pick/confirm a channel name (e.g., "general").
-     - Gõ message và press Send.
-     - Mở một tab khác cùng URL; Thấy history update sau khi refresh.
-   Expected:
-     - Message sẽ xuất hiện..
-D) P2P signaling demo (Peer-to-Peer)
-   URL: http://127.0.0.1:8080/p2p.html  
-   Setup 2 tabs:
-     - Tab A: set Peer ID = peerA
-     - Tab B: set Peer ID = peerB
+## 1) Login page
+- **URL:** `http://127.0.0.1:8080/login.html`
+- **Steps:**
+  - Nhập `username = admin`, `password = password`
+  - Bấm Submit
+- **Expected:**
+  - Đăng nhập thành công
+  - Trang login dùng JavaScript chuyển hướng về `/` (index)
+  - Cookie được tạo (kiểm tra ở DevTools -> Application -> Cookies)
 
-   Steps:
-     1. Tab A: Click “Offer”.
-     2. Tab B: Click “Poll Offer” -> “Answer”.
-     3. Tab A: Click “Poll Answer”.
-     4. Gửi messages qua DataChannel.
+---
 
-4) Logout (verify cookie-gate)
- `/api/logout` from the console.
-   - Refresh http://127.0.0.1:8080/ → sẽ thấy 401 Unauthorized đến khi log in.
+## 2) Gated home page
+- **URL:** `http://127.0.0.1:8080/`
+- **Behavior:**
+  - Nếu đã đăng nhập (có auth cookie) -> index page load bình thường
+  - Nếu chưa đăng nhập -> hiển thị `401 Unauthorized` và link quay lại `/login.html`
+
+---
+
+## 3) Chat (Client-Server)
+- **URL:** `http://127.0.0.1:8080/chat.html`
+- **Steps:**
+  - Cần đăng nhập trước
+  - Chọn/xác nhận channel (ví dụ: `general`)
+  - Gõ message và nhấn **Send**
+  - Mở thêm tab khác cùng URL; kiểm tra history sau khi refresh
+- **Expected:**
+  - Message hiển thị đúng
+
+> Nếu dự án hiện tại không có `chat.html`, bạn có thể bỏ qua mục này hoặc dùng `p2p.html` để demo chat qua DataChannel.
+
+---
+
+## 4) P2P signaling demo (Peer-to-Peer)
+- **URL:** `http://127.0.0.1:8080/p2p.html`
+- **Setup 2 tabs:**
+  - Tab A: đặt **Peer ID = `peerA`**
+  - Tab B: đặt **Peer ID = `peerB`**
+
+### Steps
+1. Tab A: bấm **Offer**
+2. Tab B: bấm **Poll Offer** -> **Answer**
+3. Tab A: bấm **Poll Answer**
+4. Gửi message qua DataChannel
+
+---
+
+## 5) Logout (verify cookie-gate)
+- Gọi endpoint logout: `POST /api/logout` (ví dụ từ browser console)
+- Refresh `http://127.0.0.1:8080/`
+- **Expected:** thấy `401 Unauthorized` cho đến khi đăng nhập lại
+
+---
+
+## Ghi chú
+- Proxy chạy ở cổng `8080`
+- Login mẫu:
+  - `username: admin`
+  - `password: password`
